@@ -4,6 +4,7 @@ A modern, responsive, and dynamic personal landing page designed with a cyberpun
 
 **🌐 Live Demo:** [https://dayi-tw.github.io/DRL-IDC-20260225-Personal-Page/](https://dayi-tw.github.io/DRL-IDC-20260225-Personal-Page/)
 
+---
 
 ## 😀 Preview
 <img width="964" height="832" alt="image" src="https://github.com/user-attachments/assets/508ab65e-c297-4574-9320-e1ebdf2e263c" />
