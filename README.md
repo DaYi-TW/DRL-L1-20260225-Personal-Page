@@ -2,7 +2,7 @@
 
 A modern, responsive, and dynamic personal landing page designed with a cyberpunk and high-tech aesthetic. It features eye-catching animations, glassmorphism design, and interactive 3D elements.
 
-**🌐 Live Demo:** [https://dayi-tw.github.io/IDC-DRL-Personal-Page/](https://dayi-tw.github.io/IDC-DRL-Personal-Page/)
+**🌐 Live Demo:** [https://dayi-tw.github.io/DRL-IDC-20260225-Personal-Page/](https://dayi-tw.github.io/DRL-IDC-20260225-Personal-Page/)
 
 ## ✨ Features
 
