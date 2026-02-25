@@ -1,4 +1,4 @@
-# DaYi - Personal Page
+# DRL-IDC-20260225-Personal-Page
 
 A modern, responsive, and dynamic personal landing page designed with a cyberpunk and high-tech aesthetic. It features eye-catching animations, glassmorphism design, and interactive 3D elements.
 
