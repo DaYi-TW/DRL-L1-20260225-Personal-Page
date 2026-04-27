@@ -1,30 +1,357 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DaYi - Personal Page</title>
-    <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DaYi - Frontend Developer</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --border: #30363d;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --green: #3fb950;
+      --purple: #bc8cff;
+      --orange: #f0883e;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(13,17,23,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    nav .logo { font-weight: 700; font-size: 1.1rem; color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 24px; }
+    nav a { color: var(--muted); text-decoration: none; font-size: .9rem; transition: color .2s; }
+    nav a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 100px 24px 60px;
+      background: radial-gradient(ellipse at 50% 0%, rgba(88,166,255,.12) 0%, transparent 60%);
+    }
+    .hero-inner { max-width: 680px; }
+    .avatar {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      margin-bottom: 24px;
+    }
+    .hero h1 { font-size: clamp(2rem,5vw,3.2rem); font-weight: 800; margin-bottom: 12px; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { color: var(--muted); font-size: 1.1rem; margin-bottom: 32px; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 36px; }
+    .badge {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: .85rem;
+      color: var(--accent);
+    }
+    .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      padding: 10px 24px; border-radius: 8px; font-size: .95rem;
+      text-decoration: none; font-weight: 600; transition: all .2s;
+    }
+    .btn-primary { background: var(--accent); color: #0d1117; }
+    .btn-primary:hover { filter: brightness(1.15); transform: translateY(-2px); }
+    .btn-outline { border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* SECTIONS */
+    section { padding: 80px 24px; max-width: 960px; margin: 0 auto; }
+    .section-title {
+      font-size: 1.5rem; font-weight: 700; margin-bottom: 40px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-title::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+
+    /* SKILLS */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      transition: border-color .2s, transform .2s;
+    }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .skill-card .icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .skill-card h3 { font-size: 1rem; margin-bottom: 8px; }
+    .skill-card p { color: var(--muted); font-size: .85rem; }
+
+    /* PROJECTS */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex; flex-direction: column; gap: 12px;
+      transition: border-color .2s, transform .2s;
+      text-decoration: none; color: inherit;
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .project-card .proj-header { display: flex; align-items: center; justify-content: space-between; }
+    .project-card .proj-icon { font-size: 1.5rem; }
+    .project-card .proj-lang {
+      font-size: .75rem;
+      background: rgba(88,166,255,.15);
+      color: var(--accent);
+      padding: 3px 10px; border-radius: 20px;
+    }
+    .project-card h3 { font-size: 1rem; font-weight: 700; }
+    .project-card p { color: var(--muted); font-size: .875rem; flex: 1; }
+    .project-card .proj-footer { display: flex; gap: 12px; }
+    .project-card .proj-link {
+      font-size: .8rem; color: var(--accent);
+      text-decoration: none; display: flex; align-items: center; gap: 4px;
+    }
+    .project-card .proj-link:hover { text-decoration: underline; }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    @media (max-width: 600px) { .about-grid { grid-template-columns: 1fr; } }
+    .about-text p { color: var(--muted); margin-bottom: 16px; }
+    .timeline { list-style: none; }
+    .timeline li {
+      padding: 12px 0 12px 24px;
+      border-left: 2px solid var(--border);
+      position: relative; margin-left: 8px;
+    }
+    .timeline li::before {
+      content: ''; position: absolute; left: -6px; top: 16px;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--accent);
+    }
+    .timeline .year { color: var(--accent); font-size: .8rem; font-weight: 600; }
+    .timeline .event { font-size: .9rem; }
+
+    /* FOOTER */
+    footer {
+      text-align: center; padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted); font-size: .875rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* SCROLL REVEAL */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s, transform .6s; }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
 </head>
 <body>
-    <div class="background">
-        <div class="blob blob1"></div>
-        <div class="blob blob2"></div>
+
+<nav>
+  <div class="logo">DaYi.dev</div>
+  <ul>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <img class="avatar" src="https://avatars.githubusercontent.com/u/6985419?v=4" alt="DaYi" />
+    <h1>Hi, I'm <span>DaYi</span> 👋</h1>
+    <p>Frontend Developer · TypeScript · React · Vue.js<br/>熱愛打造流暢、美觀的使用者介面</p>
+    <div class="badge-row">
+      <span class="badge">⚛️ React</span>
+      <span class="badge">🟦 TypeScript</span>
+      <span class="badge">💚 Vue.js</span>
+      <span class="badge">⚡ Vite</span>
+      <span class="badge">🎨 CSS</span>
     </div>
-    <div class="container" id="tilt-container">
-        <h1 class="name" data-text="DaYi">DaYi</h1>
-        <div class="clock-wrapper">
-            <div class="clock">
-                <div class="glow-ring"></div>
-                <div class="glass-pane"></div>
-                <div class="time-display">
-                    <span id="hours">00</span><span class="colon">:</span><span id="minutes">00</span><span class="colon">:</span><span id="seconds">00</span>
-                </div>
-                <div class="date-display" id="date">YYYY-MM-DD</div>
-            </div>
-        </div>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://github.com/DaYi-TW" target="_blank">GitHub Profile</a>
+      <a class="btn btn-outline" href="#projects">查看作品</a>
     </div>
-    <script src="script.js"></script>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <h2 class="section-title reveal">🗂 Projects</h2>
+  <div class="projects-grid">
+
+    <a class="project-card reveal" href="https://github.com/DaYi-TW/vending-machine" target="_blank">
+      <div class="proj-header">
+        <span class="proj-icon">🏪</span>
+        <span class="proj-lang">TypeScript</span>
+      </div>
+      <h3>Vending Machine</h3>
+      <p>以 TypeScript 實作的自動販賣機模擬程式，展示物件導向設計與狀態管理。</p>
+      <div class="proj-footer">
+        <a class="proj-link" href="https://github.com/DaYi-TW/vending-machine" target="_blank">↗ GitHub</a>
+      </div>
+    </a>
+
+    <a class="project-card reveal" href="https://github.com/DaYi-TW/react-todolist" target="_blank">
+      <div class="proj-header">
+        <span class="proj-icon">✅</span>
+        <span class="proj-lang">TypeScript</span>
+      </div>
+      <h3>React Todo List</h3>
+      <p>使用 React + TypeScript 打造的待辦清單應用，包含新增、刪除、完成狀態切換等功能。</p>
+      <div class="proj-footer">
+        <a class="proj-link" href="https://github.com/DaYi-TW/react-todolist" target="_blank">↗ GitHub</a>
+      </div>
+    </a>
+
+    <a class="project-card reveal" href="https://github.com/DaYi-TW/react-weather-app" target="_blank">
+      <div class="proj-header">
+        <span class="proj-icon">🌤️</span>
+        <span class="proj-lang">JavaScript</span>
+      </div>
+      <h3>React Weather App</h3>
+      <p>以 React 串接天氣 API，呈現即時天氣資訊，支援地點搜尋與天氣圖示顯示。</p>
+      <div class="proj-footer">
+        <a class="proj-link" href="https://github.com/DaYi-TW/react-weather-app" target="_blank">↗ GitHub</a>
+      </div>
+    </a>
+
+    <a class="project-card reveal" href="https://github.com/DaYi-TW/Pomodoro-App" target="_blank">
+      <div class="proj-header">
+        <span class="proj-icon">🍅</span>
+        <span class="proj-lang">Vue.js</span>
+      </div>
+      <h3>Pomodoro App</h3>
+      <p>以 Vue.js 打造的番茄鐘計時器，幫助提升工作效率，支援自訂工作與休息時間。</p>
+      <div class="proj-footer">
+        <a class="proj-link" href="https://github.com/DaYi-TW/Pomodoro-App" target="_blank">↗ GitHub</a>
+      </div>
+    </a>
+
+    <a class="project-card reveal" href="https://github.com/DaYi-TW/weather-app" target="_blank">
+      <div class="proj-header">
+        <span class="proj-icon">☁️</span>
+        <span class="proj-lang">JavaScript</span>
+      </div>
+      <h3>Weather App</h3>
+      <p>簡潔的天氣查詢 App，串接外部 API 顯示即時天氣資料，響應式設計支援各種裝置。</p>
+      <div class="proj-footer">
+        <a class="proj-link" href="https://github.com/DaYi-TW/weather-app" target="_blank">↗ GitHub</a>
+      </div>
+    </a>
+
+    <a class="project-card reveal" href="https://github.com/DaYi-TW/vite-react-ts-template" target="_blank">
+      <div class="proj-header">
+        <span class="proj-icon">⚡</span>
+        <span class="proj-lang">TypeScript</span>
+      </div>
+      <h3>Vite React TS Template</h3>
+      <p>快速開發用的 React + TypeScript + Vite 專案模板，整合 ESLint 與最佳實踐設定。</p>
+      <div class="proj-footer">
+        <a class="proj-link" href="https://github.com/DaYi-TW/vite-react-ts-template" target="_blank">↗ GitHub</a>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <h2 class="section-title reveal">🛠 Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="icon">⚛️</div>
+      <h3>React</h3>
+      <p>Hooks、Context API、函式元件，熟悉現代 React 開發模式</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="icon">🟦</div>
+      <h3>TypeScript</h3>
+      <p>型別系統、介面設計、Generic，提升程式碼可靠性</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="icon">💚</div>
+      <h3>Vue.js</h3>
+      <p>Vue 2/3、Options API，打造響應式互動介面</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="icon">⚡</div>
+      <h3>Vite / Webpack</h3>
+      <p>現代前端建置工具，快速開發環境配置</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="icon">🎨</div>
+      <h3>CSS / HTML</h3>
+      <p>Flexbox、Grid、動畫，打造美觀的使用者介面</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="icon">🐙</div>
+      <h3>Git / GitHub</h3>
+      <p>版本控制、分支管理、協作開發工作流程</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <h2 class="section-title reveal">👤 About Me</h2>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>我是 DaYi，一位熱愛前端開發的工程師，專注於打造流暢、直觀的使用者體驗。</p>
+      <p>喜歡用 React 和 TypeScript 解決實際問題，也持續學習新技術保持進步。</p>
+      <p>業餘時間會參與 iThome 鐵人賽挑戰自我，並維護個人開源專案。</p>
+    </div>
+    <div class="reveal">
+      <ul class="timeline">
+        <li>
+          <div class="year">2022</div>
+          <div class="event">建立 Vite + React + TypeScript 開發模板</div>
+        </li>
+        <li>
+          <div class="year">2021</div>
+          <div class="event">參加 iThome 鐵人賽 2021</div>
+        </li>
+        <li>
+          <div class="year">2021</div>
+          <div class="event">以 TypeScript 完成自動販賣機模擬專案</div>
+        </li>
+        <li>
+          <div class="year">2020</div>
+          <div class="event">以 Vue.js 打造番茄鐘 App</div>
+        </li>
+        <li>
+          <div class="year">2014</div>
+          <div class="event">加入 GitHub，開始前端開發之旅</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2024 DaYi · Built with ❤️ · <a href="https://github.com/DaYi-TW" target="_blank">GitHub</a></p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
